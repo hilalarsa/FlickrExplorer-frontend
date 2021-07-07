@@ -72,7 +72,7 @@ export default function Home({ data }) {
                             />
                             {!data && (
                                 <Typography
-                                    key="1"
+                                    key="no"
                                     align="center"
                                     variant="h6"
                                 >
@@ -83,12 +83,12 @@ export default function Home({ data }) {
                                 searchFilter(searchValue, data).map(
                                     (item, index) => {
                                         return (
-                                            <>
+                                            <div key={index}>
                                                 <CardImage
-                                                    key={index}
+                                                    key={"image"+index}
                                                     data={item}
                                                 />
-                                            </>
+                                            </div>
                                         )
                                     }
                                 )}
@@ -99,12 +99,6 @@ export default function Home({ data }) {
                     <div hidden={tab !== 1} className={styles.tab}>
                         <div className={styles.searchcontainer}>
                             <div>
-                                {/* <Image
-                                src={data[page].media.m}
-                                width={200}
-                                height={200}
-                                alt={data[page].description}
-                            /> */}
                                 <CardImage key={page} data={data[page]} />
                             </div>
                             <div className={styles.pagination}>
@@ -123,7 +117,6 @@ export default function Home({ data }) {
 export async function getStaticProps(context) {
     const res = await getImages()
     const data = await res
-    console.log(data.items)
 
     if (!res.status == 200) {
         return {

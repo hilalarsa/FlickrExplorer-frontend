@@ -34,13 +34,14 @@ const CardImage = ({ data }) => {
                             data.tags.split(' ').map((chip, index) => {
                                 return (
                                     <Chip
+                                        key={index}
                                         className={styles.chip}
                                         label={chip}
                                     />
                                 )
                             })
                         ) : (
-                            <Chip className={styles.chip} label="No Tags" />
+                            <Chip key="00" className={styles.chip} label="No Tags" />
                         )}
                     </div>
                 </div>

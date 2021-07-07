@@ -1,7 +1,8 @@
 import axios from 'axios'
 
 const getImages = async () => {
-    let result = await axios.get('http://localhost:3001/')
+    console.log(process.env.API_URL)
+    let result = await axios.get(process.env.API_URL ? process.env.API_URL : "https://flickrexplorer-backend.herokuapp.com/")
     return result.data
 }
 

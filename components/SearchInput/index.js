@@ -1,4 +1,4 @@
-const SearchInput = ({ handleClick, handleChange, inputClassname = "", inputName = "", placeholder = "", initialValue = "", disabled = false, icon = ""}) => (
+const SearchInput = ({ handleClick, handleChange, inputClassname = "", inputName = "", placeholder = "", initialValue = "", disabled = false}) => (
     <>
     <input
         onClick={e => {
@@ -14,10 +14,6 @@ const SearchInput = ({ handleClick, handleChange, inputClassname = "", inputName
         className={""}
         type="text"
     />
-    <button className="">{icon}</button>
-    <style jsx>{`
-        
-        `}</style>
     </>
 );
 export default SearchInput
