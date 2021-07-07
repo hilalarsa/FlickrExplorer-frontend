@@ -40,18 +40,6 @@ export default function Home({ data }) {
 
     return (
         <div className={styles.container}>
-            <Head>
-                <title>Flicker Explorer</title>
-                <meta name="description" content="Flickr Explorer App" />
-                <link
-                    rel="icon"
-                    href="https://combo.staticflickr.com/pw/favicon.ico"
-                />
-                <link
-                    rel="stylesheet"
-                    href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
-                />
-            </Head>
             <AppBar position="static" className={styles.appbar}>
                 <Tabs value={tab} onChange={handleChangeTab}>
                     <Tab label="Search" />
@@ -85,7 +73,7 @@ export default function Home({ data }) {
                                         return (
                                             <div key={index}>
                                                 <CardImage
-                                                    key={"image"+index}
+                                                    key={'image' + index}
                                                     data={item}
                                                 />
                                             </div>

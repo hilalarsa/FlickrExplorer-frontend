@@ -6,9 +6,8 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 
 import { render } from '@testing-library/react'
-
+import Image from 'next/image'
 import CardImage from './index'
-
 // import { getImages } from '../../helper/api'
 
 // const callAPI = async () => {
@@ -27,9 +26,9 @@ const mockObject = {
     tags: 'tag1 tag2 tag3',
 }
 
-jest.mock('next/image', () => {
-    return () => <></>
-})
+jest.mock('next/image', ({ src, alt }) => (
+    <Image width={50} height={50} src={src} alt={alt} />
+))
 
 describe('Card image component', () => {
     it('should render card without crashing', () => {
