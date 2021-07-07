@@ -1,5 +1,5 @@
 import Image from 'next/image'
-import styles from './style.module.css'
+import styles from '@styles/CardImage.module.css'
 import { Chip } from '@material-ui/core'
 const CardImage = ({ data }) => {
     return (

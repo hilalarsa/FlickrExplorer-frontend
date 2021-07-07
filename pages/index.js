@@ -1,9 +1,9 @@
 import Head from 'next/head'
 import Image from 'next/image'
-import styles from '../styles/Home.module.css'
+import styles from '@styles/Home.module.css'
 
 import { useState, useEffect } from 'react'
-import { getImages } from '@helper/api'
+import { getImages } from '../helper/api'
 
 import {
     TextField,
@@ -15,7 +15,7 @@ import {
 } from '@material-ui/core'
 import Pagination from '@material-ui/lab/Pagination'
 
-import CardImage from '@components/CardImage/index'
+import CardImage from '../components/CardImage/index'
 
 export default function Home({ data }) {
     const [searchValue, setSearchValue] = useState('')
@@ -75,7 +75,6 @@ export default function Home({ data }) {
                                     key="1"
                                     align="center"
                                     variant="h6"
-                                    gutterTop
                                 >
                                     No Result
                                 </Typography>
