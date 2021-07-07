@@ -4,10 +4,11 @@
 
 import React from 'react'
 import ReactDOM from 'react-dom'
+import Image from 'next/image'
 
 import { render } from '@testing-library/react'
-import Image from 'next/image'
 import CardImage from './index'
+
 // import { getImages } from '../../helper/api'
 
 // const callAPI = async () => {

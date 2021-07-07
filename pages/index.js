@@ -3,7 +3,7 @@ import Image from 'next/image'
 import styles from '@styles/Home.module.css'
 
 import { useState, useEffect } from 'react'
-import { getImages } from '../helper/api'
+import { getImages, getImagesByTag } from '../helper/api'
 
 import {
     TextField,
@@ -12,6 +12,7 @@ import {
     Tabs,
     Tab,
     Chip,
+    Button,
 } from '@material-ui/core'
 import Pagination from '@material-ui/lab/Pagination'
 
@@ -19,6 +20,8 @@ import CardImage from '../components/CardImage/index'
 
 export default function Home({ data }) {
     const [searchValue, setSearchValue] = useState('')
+    const [searchValueTag, setSearchValueTag] = useState('')
+    const [imageFromTagData, setImageFromTagData] = useState([])
     const [tab, setTab] = useState(0)
     const [page, setPage] = useState(0)
 
@@ -28,6 +31,24 @@ export default function Home({ data }) {
             ? list.filter((x) => x.tags.toLowerCase().includes(lowerCaseQuery))
             : list
         return filteredList
+    }
+
+    const handleSearchByTag = async (tag) => {
+        let result = await getImagesByTag(tag)
+        result = result.splice(0, 20) //only get 20 image
+        // image https://live.staticflickr.com/{server-id}/{id}_{secret}_{size-suffix}.jpg
+        let obj = result.map((item, index) => {
+            return {
+                title: item.title,
+                media: {
+                    m: `https://live.staticflickr.com/${item.server}/${item.id}_${item.secret}.jpg`,
+                },
+                author: item.owner,
+                tags: tag,
+                description: 'From Tag Search',
+            }
+        })
+        setImageFromTagData(obj)
     }
 
     const handleChangeTab = (event, newValue) => {
@@ -44,6 +65,7 @@ export default function Home({ data }) {
                 <Tabs value={tab} onChange={handleChangeTab}>
                     <Tab label="Search" />
                     <Tab label="Pagination" />
+                    <Tab label="Search tags by API request" />
                 </Tabs>
             </AppBar>
             <main className={styles.main}>
@@ -94,6 +116,55 @@ export default function Home({ data }) {
                                     count={data.length}
                                     onChange={handleChangePage}
                                 />
+                            </div>
+                        </div>
+                    </div>
+                )}
+                {tab === 2 && (
+                    <div hidden={tab !== 2} className={styles.tab}>
+                        <div hidden={tab !== 0} className={styles.tab}>
+                            <div className={styles.searchBarTag}>
+                                <TextField
+                                    id="outlined-basic"
+                                    label="Search image frm API by tags"
+                                    variant="outlined"
+                                    fullWidth
+                                    value={searchValueTag}
+                                    onChange={(e) =>
+                                        setSearchValueTag(e.target.value)
+                                    }
+                                />
+                                <Button
+                                    variant="contained"
+                                    color="primary"
+                                    onClick={() =>
+                                        handleSearchByTag(searchValueTag)
+                                    }
+                                >
+                                    Search
+                                </Button>
+                            </div>
+                            <div style={{ width: '100%' }}>
+                                {imageFromTagData.length == 0 && (
+                                    <Typography
+                                        key="no"
+                                        align="center"
+                                        variant="h6"
+                                    >
+                                        No Result
+                                    </Typography>
+                                )}
+                                {imageFromTagData &&
+                                    imageFromTagData.map((item, index) => {
+                                        return (
+                                            <div key={index}>
+                                                <CardImage
+                                                    key={'imageTag' + index}
+                                                    data={item}
+                                                />
+                                            </div>
+                                        )
+                                    })}
                             </div>
                         </div>
                     </div>

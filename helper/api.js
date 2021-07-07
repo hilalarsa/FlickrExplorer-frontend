@@ -1,9 +1,19 @@
 import axios from 'axios'
 
+const API_URL = 'https://flickrexplorer-backend.herokuapp.com/'
+// const API_URL = 'http://localhost:3001/'
+
 const getImages = async () => {
-    console.log(process.env.API_URL)
-    let result = await axios.get(process.env.API_URL ? process.env.API_URL : "https://flickrexplorer-backend.herokuapp.com/")
+    let result = await axios.get(API_URL)
     return result.data
 }
+const getImagesByTag = async (tag) => {
+    if (!tag) {
+        return []
+    }
+    let params = 'tags/' + tag
+    let result = await axios.get(API_URL + params)
+    return result.data.photos.photo
+}
 
-export { getImages }
+export { getImages, getImagesByTag }

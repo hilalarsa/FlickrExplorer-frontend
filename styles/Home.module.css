@@ -80,6 +80,10 @@
 .searchBar {
     width: 90%;
 }
+.searchBarTag {
+    width: 90%;
+    display: flex;
+}
 
 .image {
     width: 100%;
